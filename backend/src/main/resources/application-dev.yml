@@ -1,0 +1,16 @@
+server:
+  port: 8100
+
+springdoc:
+  default-produces-media-type: application/json;charset=UTF-8
+  default-consumes-media-type: application/json;charset=UTF-8
+  cache:
+    disabled: true
+  packages-to-scan: com.github.backend.controller
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /api-docs
+    
+logging:
+  config: classpath:logback-spring-dev.xml
