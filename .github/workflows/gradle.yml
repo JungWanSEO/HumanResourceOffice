@@ -16,6 +16,8 @@ on:
 jobs: # 병렬로 실행되는 작업 단위, 여러 step으로 이루어짐
   build:
     runs-on: ubuntu-latest  # 스크립트를 작동할 OS
+    env: 
+      working-directory: ./backend
     steps:
     - uses: actions/checkout@v4   # 재사용 가능한 워크플로 파일의 위치 및 버전
     - name: Set up JDK 17
@@ -26,14 +28,13 @@ jobs: # 병렬로 실행되는 작업 단위, 여러 step으로 이루어짐
 
     # ./gradlw 실행 권한 부여
     - name: Grant execute permission for gradlew
-      run: chmod +x ./gradlew
-      shell: bash
+      run: chmod +x gradlew
+      working-directory: ${{ env.working-directory }}
       
     # 프로젝트 build
     - name: Build with Gradle
-      run: ./gradlew clean build
-      shell: bash
-
+      run: ./gradlew build
+      working-directory: ${{ env.working-directory }}
 
     # Docker build & Push 
     - name: Docker build & push to Docker hub
